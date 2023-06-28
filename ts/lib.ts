@@ -171,8 +171,10 @@ class Settings {
         };
 
         this.checks.get("enable_video").onchange = (e) => {
-            document.getElementById("video").classList.toggle("vanish", !(e.target as HTMLInputElement).checked);
-            document.getElementById("canvas").classList.toggle("vanish", (e.target as HTMLInputElement).checked);
+            // document.getElementById("video").classList.toggle("vanish", !(e.target as HTMLInputElement).checked);
+            // document.getElementById("canvas").classList.toggle("vanish", (e.target as HTMLInputElement).checked);
+            document.getElementById("video").classList.toggle("vanish", false);
+            document.getElementById("canvas").classList.toggle("vanish", false);
             this.save_settings();
         }
 
@@ -269,7 +271,8 @@ class Settings {
                 this.checks.get("enable_video").checked = false;
                 if (this.checks.get("energysaving").checked)
                     this.checks.get("enable_video").disabled = true;
-                document.getElementById("video").classList.add("vanish");
+                // document.getElementById("video").classList.add("vanish");
+                document.getElementById("video").classList.remove("vanish");
                 document.getElementById("canvas").classList.remove("vanish");
             }
 
@@ -514,7 +517,7 @@ class Painter {
 
     render() {
         // only do work if necessary
-        if (!check_video.checked && (this.lines_active.size > 0 || this.lines_old.length > 0)) {
+        if ((this.lines_active.size > 0 || this.lines_old.length > 0)) {
             if (this.lines_old.length > 0) {
                 if (performance.now() - this.lines_old[0][this.lines_old[0].length - 1] > fade_time)
                     this.lines_old.shift();
